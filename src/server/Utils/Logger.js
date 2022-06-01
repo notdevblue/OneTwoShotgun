@@ -5,18 +5,43 @@ const fs = require("fs").promises;
 const dir = path.join(process.env.PWD, ".Log");
 
 
+// .Log 폴더 확인
 fs.access(dir)
    .catch(err => {
       fs.mkdir(dir);
    });
 
-module.exports = (msg) => {
-};
-
-console.log(filename());
 
 
-function filename() {
+module.exports = write;
+
+
+
+// 로그 헤더
+function getHeader() {
    var date = new Date();
-   return `${date.getUTCFullYear()}:${date.getUTCMonth()}:${date.getUTCDate()}`;
+   return `${date.getUTCHours()}-${date.getUTCDate()}-${date.getUTCSeconds()}-${date.getUTCMilliseconds()} `;
+}
+function getDate() {
+   var date = new Date();
+   return `${date.getUTCFullYear()}-${date.getUTCMonth()}-${date.getUTCDate()}`;
+}
+
+// 로그 작성
+function write(msg) {
+   var filePath = path.join(dir, getDate());
+   var header = getDate() + getHeader();
+
+   fs.access(filePath)
+      .catch(err => {
+         fs.writeFile(), "", err => {
+            if (err) throw err;
+            console.log(`[II] Created new log file: ${filePath}`);
+         }
+      });
+   
+   msg = header + msg;
+   
+   console.log(msg);
+   fs.appendFile(filePath, [msg + "\r\n"]);
 }
