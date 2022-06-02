@@ -15,16 +15,14 @@ fs.access(dir)
 
 module.exports = write;
 
-
-
 // 로그 헤더
 function getHeader() {
    var date = new Date();
-   return `${date.getUTCHours()}-${date.getUTCDate()}-${date.getUTCSeconds()}-${date.getUTCMilliseconds()} `;
+   return ` ${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}-${date.getMilliseconds()} `;
 }
 function getDate() {
    var date = new Date();
-   return `${date.getUTCFullYear()}-${date.getUTCMonth()}-${date.getUTCDate()}`;
+   return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
 }
 
 // 로그 작성
@@ -35,7 +33,6 @@ function write(msg) {
    fs.access(filePath)
       .catch(err => {
          fs.writeFile(), "", err => {
-            if (err) throw err;
             console.log(`[II] Created new log file: ${filePath}`);
          }
       });
@@ -45,3 +42,5 @@ function write(msg) {
    console.log(msg);
    fs.appendFile(filePath, [msg + "\r\n"]);
 }
+
+write("Test");
