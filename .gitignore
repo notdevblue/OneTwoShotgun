@@ -1,2 +1,7 @@
 src/server/node_modules
 src/server/.Log
+
+Unity/OneTwoShotgun/Library
+Unity/OneTwoShotgun/Temp
+Unity/OneTwoShotgun/UserSettings
+Unity/OneTwoShotgun/Logs

@@ -11,8 +11,6 @@ fs.access(dir)
       fs.mkdir(dir);
    });
 
-
-
 module.exports = write;
 
 // 로그 헤더
@@ -42,5 +40,3 @@ function write(msg) {
    console.log(msg);
    fs.appendFile(filePath, [msg + "\r\n"]);
 }
-
-write("Test");

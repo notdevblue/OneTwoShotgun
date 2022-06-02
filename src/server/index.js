@@ -1,7 +1,7 @@
-const WebSocket = require("ws");
-
+const HanSocket = require("./HanSocket/HanSocket.js");
 require("dotenv").config();
 
-const wss = new WebSocket.Server({ port: process.env.PORT }, () => {
-   
-});
+const wss = new HanSocket(process.env.PORT);
+
+wss.listen();
+wss.process();
