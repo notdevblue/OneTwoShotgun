@@ -1,6 +1,8 @@
 const WebSocket = require("ws");
 const logger = require("../Utils/Logger.js");
 
+// TODO: Logger Loglevel 에 따라 console.log 출력
+
 class HanSocket {
    constructor(port) {
       this.port = port;
@@ -12,9 +14,7 @@ class HanSocket {
       this.wss = new WebSocket.Server({ port: port }, () => {
          console.log(`[II] Server started on port ${port}.`);
       });
-   }
 
-   listen() {
       this.wss.on("listening", () => {
          console.log("[II] Server is listening");
       });
@@ -33,7 +33,7 @@ class HanSocket {
             let handle = this.handlers[object.type];
             
             if (handle == undefined) { // packet decoding error or no handler found
-               logger(`Error packet pre-handling from client ${ws.id}\r\nPacket: ${data}`);
+               logger(`[EE] Error packet pre-handling from client ${ws.id}\r\nPacket: ${data}`);
                return;
             }
             

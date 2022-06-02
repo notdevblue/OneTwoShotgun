@@ -4,7 +4,6 @@ const { exit, exitCode } = require("process");
 const fs = require("fs").promises;
 const dir = path.join(process.env.PWD, ".Log");
 
-
 // .Log 폴더 확인
 fs.access(dir)
    .catch(err => {

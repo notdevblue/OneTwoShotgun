@@ -3,5 +3,5 @@ require("dotenv").config();
 
 const wss = new HanSocket(process.env.PORT);
 
-wss.listen();
+
 wss.process();
