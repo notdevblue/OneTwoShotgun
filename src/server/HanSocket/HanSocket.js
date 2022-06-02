@@ -30,14 +30,14 @@ class HanSocket {
 
          ws.on("message", data => {
             let object = JSON.parse(data);
-            let packet = this.handlers.find(x => x.type == object.type);
+            let handle = this.handlers[object.type];
             
-            if (packet == undefined) { // packet decoding error or no handler found
+            if (handle == undefined) { // packet decoding error or no handler found
                logger(`Error packet pre-handling from client ${ws.id}\r\nPacket: ${data}`);
                return;
             }
             
-            packet.handle(object.payload);
+            handle(object.payload);
          });
 
          ws.on("close", data => {
@@ -49,7 +49,7 @@ class HanSocket {
    }
 
    addHandler(type, handle) {
-      this.handlers.push({ type, handle });
+      this.handlers[type] = handle;
    }
 
    toJson(type, payload) {
