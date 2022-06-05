@@ -1,5 +1,7 @@
 const WebSocket = require("ws");
 const logger = require("../Utils/Logger.js");
+const path = require("path");
+const fs = require("fs");
 
 // TODO: Logger Loglevel 에 따라 console.log 출력
 
@@ -14,6 +16,15 @@ class HanSocket {
       this.wss = new WebSocket.Server({ port: port }, () => {
          console.log(`[II] Server started on port ${port}.`);
       });
+      
+      // dynamic handler importing
+      fs.readdir(path.join(".", "Handlers"), (err, file) => {
+         file.forEach(e => {
+            console.log(`[II] Found heandler ${e}`);
+            const handler = require(path.join("..", "Handlers", e));
+            this.addHandler(handler.type, handler.handle);
+         });
+      });      
 
       this.wss.on("listening", () => {
          console.log("[II] Server is listening");
