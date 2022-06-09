@@ -1,6 +1,9 @@
-const HanSocket = require("./HanSocket/HanSocket.js");
-require("dotenv").config();
+// const HanSocket = require("./HanSocket/HanSocket.js");
+const mysql = require("./Utils/mysql.js");
+// require("dotenv").config();
 
-const hs = new HanSocket(process.env.PORT);
+// const hs = new HanSocket(process.env.PORT);
 
-hs.process();
+// hs.process();
+
+
