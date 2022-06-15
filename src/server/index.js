@@ -1,8 +1,14 @@
-const HanSocket = require("./HanSocket/HanSocket.js");
-const query = require("./Utils/mysql-extensions.js");
+const query    = require("./Utils/mysql-extensions.js");
+const DataVO   = require("./VO/DataVO.js");
 
-const hs = new HanSocket(process.env.PORT);
+const hs =
+   new require("./HanSocket/HanSocket.js")
+      .HanSocket(process.env.PORT);
+
 hs.process(ws => {
-   ws.send();
-});
+   const payload = JSON.stringify({
+      id: ws.id
+   });
 
+   hs.send(ws, hs.toJson("init", payload));
+});

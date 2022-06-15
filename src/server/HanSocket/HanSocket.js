@@ -87,6 +87,17 @@ class HanSocket {
    toJson(type, payload) {
       JSON.stringify({ type: type, payload: payload });
    }
+
+   send(ws, packet) {
+      ws.send(packet);
+      logger(`[II] Sending ${packet} to ${}`); // TODO: IPADDR
+   }
+
+   broadcast(packet) {
+      this.clients.forEach(ws => {
+         this.send(ws, packet);
+      });
+   }
    
 }
 
