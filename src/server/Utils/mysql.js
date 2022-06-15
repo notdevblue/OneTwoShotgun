@@ -19,8 +19,8 @@ class mysql
    }
 
    async query(sql, data) {
-      const res = await this.con.query(sql, data);
-      return res;
+      const [rows, fields] = await this.con.query(sql, data);
+      return rows;
    }
 }
 

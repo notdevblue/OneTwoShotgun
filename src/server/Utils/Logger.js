@@ -21,9 +21,9 @@ function getDate() {
 }
 
 // 로그 작성
-function write(msg) {
+function write(msg, ipAddr) {
    var filePath = path.join(dir, getDate());
-   var header = getDate() + getHeader();
+   var header = getDate() + getHeader() + (ipAddr == undefined ? "" : (" [" + ipAddr + "] "));
 
    fs.access(filePath)
       .catch(err => {

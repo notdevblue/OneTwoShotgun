@@ -31,28 +31,49 @@ class HanSocket {
       });
    }
 
-   process() {
+   process(connectionCallback) {
       this.wss.on("connection", ws => {
+         
+         // save ip address
+         const ipAddr = req.headers["x-forwarded-for"] || req.headers.host;
+
          // assign id to client
          ws.id = id++;
          this.clients[ws.id] = ws;
 
-         console.log(`[II] New client joined. ID:{ws.id}`);
+         if (connectionCallback != null)
+            connectionCallback(ws);
+
+         console.log(`[II] New client joined. ID:${ws.id}`, ipAddr);
 
          ws.on("message", data => {
-            let object = JSON.parse(data);
-            let handle = this.handlers[object.type];
+            let object;
+            let handle;
+            let keepGoing = true;
+
+            try {
+               object = JSON.parse(data);
+            } catch (e) {
+               object = undefined;
+               logger(`[EE] Error packet JSON parsing.\t received packet: ${data} from `, ipAddr);
+               keepGoing = false;
+            }
+
+            if (!keepGoing) return;
+            
+            handle = this.handlers[object.type];
             
             if (handle == undefined) { // packet decoding error or no handler found
-               logger(`[EE] Error packet pre-handling from client ${ws.id}\r\nPacket: ${data}`);
+               logger(`[EE] Error packet pre-handling from client ${ws.id}\r\nPacket: ${data}`, ipAddr);
                return;
             }
             
             handle(object.payload);
          });
 
-         ws.on("close", data => {
+         ws.on("close", (code, reason) => {
             // delete client data
+            logger(`[II] Client disconnected, code: ${code}, reason: ${reason}`, ipAddr);
             this.clients[ws.id] = null;
             this.clients.splice(ws.id, 1);
          });
