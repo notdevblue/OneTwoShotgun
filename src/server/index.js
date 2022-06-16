@@ -1,11 +1,11 @@
 const query    = require("./Utils/mysql-extensions.js");
 const DataVO   = require("./VO/DataVO.js");
 
-const hs =
-   new require("./HanSocket/HanSocket.js")
-      .HanSocket(process.env.PORT);
+const hs = require("./HanSocket/HanSocket.js");
 
 hs.process(ws => {
+   ws.loggedin = false;
+
    const payload = JSON.stringify({
       id: ws.id
    });

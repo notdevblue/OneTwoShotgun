@@ -3,7 +3,7 @@ using System;
 namespace HanSocket.VO
 {
    [Serializable]
-   class DataVO : ValueObject
+   public class DataVO : ValueObject
    {
       public string type;
       public string payload;

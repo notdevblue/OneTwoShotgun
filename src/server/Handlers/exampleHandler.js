@@ -1,6 +1,6 @@
 module.exports = {
    type: "test",
-   handle: data => {
+   handle: (ws, data) => {
       console.log("Hello");
    }
 };

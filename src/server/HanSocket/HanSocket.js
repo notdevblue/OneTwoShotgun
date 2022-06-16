@@ -20,25 +20,26 @@ class HanSocket {
       // dynamic handler importing
       fs.readdir(path.join(".", "Handlers"), (err, file) => {
          file.forEach(e => {
-            console.log(`[II] Found heandler ${e}`);
+            console.log(`[  ] Found heandler ${e}`);
             const handler = require(path.join("..", "Handlers", e));
             this.addHandler(handler.type, handler.handle);
          });
       });      
 
       this.wss.on("listening", () => {
-         console.log("[II] Server is listening");
+         console.log("[  ] Server is listening");
       });
    }
 
    process(connectionCallback) {
-      this.wss.on("connection", ws => {
+      this.wss.on("connection", (ws, req) => {
          
          // save ip address
          const ipAddr = req.headers["x-forwarded-for"] || req.headers.host;
 
          // assign id to client
-         ws.id = id++;
+         ws.id = this.id++;
+         ws.ipAddr = ipAddr;
          this.clients[ws.id] = ws;
 
          if (connectionCallback != null)
@@ -54,7 +55,6 @@ class HanSocket {
             try {
                object = JSON.parse(data);
             } catch (e) {
-               object = undefined;
                logger(`[EE] Error packet JSON parsing.\t received packet: ${data} from `, ipAddr);
                keepGoing = false;
             }
@@ -68,7 +68,7 @@ class HanSocket {
                return;
             }
             
-            handle(object.payload);
+            handle(ws, object.payload);
          });
 
          ws.on("close", (code, reason) => {
@@ -85,12 +85,12 @@ class HanSocket {
    }
 
    toJson(type, payload) {
-      JSON.stringify({ type: type, payload: payload });
+      return JSON.stringify({ type: type, payload: payload });
    }
 
    send(ws, packet) {
       ws.send(packet);
-      logger(`[II] Sending ${packet} to ${}`); // TODO: IPADDR
+      logger(`[  ] Sending ${packet} to ${ws.ipAddr}`);
    }
 
    broadcast(packet) {
@@ -101,4 +101,4 @@ class HanSocket {
    
 }
 
-module.exports = HanSocket;
+module.exports = new HanSocket(process.env.PORT);

@@ -22,14 +22,14 @@ function getDate() {
 
 // 로그 작성
 function write(msg, ipAddr) {
-   var filePath = path.join(dir, getDate());
-   var header = getDate() + getHeader() + (ipAddr == undefined ? "" : (" [" + ipAddr + "] "));
+   var filePath = path.join(dir, getDate() + ".log");
+   var header = getDate() + getHeader() + (ipAddr == undefined ? "" : ("[" + ipAddr + "] "));
 
    fs.access(filePath)
       .catch(err => {
-         fs.writeFile(), "", err => {
+         fs.writeFile(filePath, "", err => {
             console.log(`[II] Created new log file: ${filePath}`);
-         }
+         });
       });
    
    msg = header + msg;
