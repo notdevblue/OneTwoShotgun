@@ -14,20 +14,20 @@ class HanSocket {
       this.id = 0;
 
       this.wss = new WebSocket.Server({ port: port }, () => {
-         console.log(`[II] Server started on port ${port}.`);
+         logger(`[II] Server started on port ${port}.`);
       });
       
       // dynamic handler importing
       fs.readdir(path.join(".", "Handlers"), (err, file) => {
          file.forEach(e => {
-            console.log(`[  ] Found heandler ${e}`);
+            logger(`[  ] Found heandler ${e}`);
             const handler = require(path.join("..", "Handlers", e));
             this.addHandler(handler.type, handler.handle);
          });
       });      
 
       this.wss.on("listening", () => {
-         console.log("[  ] Server is listening");
+         logger("[  ] Server is listening");
       });
    }
 
@@ -45,9 +45,9 @@ class HanSocket {
          if (connectionCallback != null)
             connectionCallback(ws);
 
-         console.log(`[II] New client joined. ID:${ws.id}`, ipAddr);
+         logger(`[II] New client joined. ID:${ws.id}`, ipAddr);
 
-         ws.on("message", data => {
+         ws.on("message", async data => {
             let object;
             let handle;
             let keepGoing = true;
@@ -67,8 +67,10 @@ class HanSocket {
                logger(`[EE] Error packet pre-handling from client ${ws.id}\r\nPacket: ${data}`, ipAddr);
                return;
             }
+
+            logger(`[  ] Received: ${data.toString()}`, ipAddr)
             
-            handle(ws, object.payload);
+            await handle(ws, object.payload);
          });
 
          ws.on("close", (code, reason) => {

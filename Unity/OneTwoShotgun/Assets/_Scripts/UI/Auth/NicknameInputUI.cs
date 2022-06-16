@@ -14,7 +14,7 @@ namespace UI.Auth
          _nicknameInputField = GetComponentInChildren<TMP_InputField>();
       }
 
-      private void FixedUpdate()
+      private void Update()
       {
          if (Input.GetKeyDown(KeyCode.Return))
          {

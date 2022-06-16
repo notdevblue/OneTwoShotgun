@@ -23,7 +23,7 @@ function getDate() {
 // 로그 작성
 function write(msg, ipAddr) {
    var filePath = path.join(dir, getDate() + ".log");
-   var header = getDate() + getHeader() + (ipAddr == undefined ? "" : ("[" + ipAddr + "] "));
+   var header = getDate() + getHeader() + (ipAddr == undefined ? "\t\t\t\t\t" : ("\t\t[" + ipAddr + "]\t"));
 
    fs.access(filePath)
       .catch(err => {

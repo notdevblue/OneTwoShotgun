@@ -1,6 +1,7 @@
 using UnityEngine;
 using HanSocket;
 using System.Collections;
+using UI;
 
 namespace HanSocket.Handlers.Auth
 {
@@ -13,12 +14,12 @@ namespace HanSocket.Handlers.Auth
 
       protected override void OnArrived(string payload)
       {
-         Debug.Log("A")
+         
       }
 
       protected override void OnFlag()
       {
-         
+         UIManager.Instance.ActivePanel("password");
       }
    }
 }

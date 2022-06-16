@@ -8,8 +8,8 @@ module.exports = {
       if (ws.loggedin) return; // TODO: 잘못된 요청
 
       const obj = parse(data);
-      (obj.signup ? query.signup : query.signin)(obj.nickname, obj.password)
-         .then(res => {
+      (obj.signup ? query.signup : query.signin)
+         (obj.nickname, obj.password, res => {
             const payload = hs.toJson("loginresult", JSON.stringify({
                success: res
             }));

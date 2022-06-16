@@ -5,8 +5,8 @@ namespace HanSocket.Handlers
 {   
    abstract public class HandlerBase : MonoBehaviour
    {
-      protected Flag _flag = new Flag();
-      protected WaitUntil wait;
+      private Flag _flag = new Flag();
+      private WaitUntil wait;
 
       protected void Init(string type)
       {
@@ -17,14 +17,15 @@ namespace HanSocket.Handlers
             _flag.Set();
          });
 
-         StartCoroutine(FlagSetted());
+         StartCoroutine(FlagAwaiter());
       }
 
-      protected virtual IEnumerator FlagSetted()
+      private IEnumerator FlagAwaiter()
       {
          while (true)
          {
             yield return wait;
+            OnFlag();
          }
       }
 
