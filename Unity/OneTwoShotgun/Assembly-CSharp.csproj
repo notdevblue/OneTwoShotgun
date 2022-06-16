@@ -47,6 +47,9 @@
      <Compile Include="Assets/_Scripts/HanSocket/BufferHandler.cs" />
      <Compile Include="Assets/_Scripts/UI/Auth/LoginUI.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/Data/UserData.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/Flag.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/Handlers/HandlerBase.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/Handlers/Auth/LoginRequestHandler.cs" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets/Packages/WebSocketSharp-netstandard.1.0.1/lib/netstandard2.0/websocket-sharp.xml" />
