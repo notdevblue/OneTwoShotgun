@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using HanSocket;
 using HanSocket.VO.Auth;
+using HanSocket.Data;
 
 namespace UI.Auth
 {
@@ -18,8 +19,11 @@ namespace UI.Auth
       {
          if (Input.GetKeyDown(KeyCode.Return))
          {
-            string payload = new CheckNicknameVO(_nicknameInputField.text.Trim()).ToJson();
+            string nickname = _nicknameInputField.text.Trim();
+            string payload = new CheckNicknameVO(nickname).ToJson();
+            
             WebSocketClient.Instance.Send("checknickname", payload);
+            UserData.Instance.nickname = nickname;
             _nicknameInputField.text = "";
          }
       }

@@ -7,10 +7,7 @@ namespace HanSocket.Handlers.Auth
 {
    public class LoginRequestHandler : HandlerBase
    {
-      private void Awake()
-      {
-         Init("loginrequest");
-      }
+      protected override string Type => "loginrequest";
 
       protected override void OnArrived(string payload)
       {

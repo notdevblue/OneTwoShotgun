@@ -30,6 +30,13 @@ namespace HanSocket
       /// <param name="type">Packet type</param>
       /// <param name="callback">type 에 대한 callback</param>
       public void AddHandler(string type, Action<string> callback)
-         => _handlerDictionary.Add(type, callback);
+      {
+         if(_handlerDictionary.ContainsKey(type))
+         {
+            Debug.LogWarning($"Type: {type} is already added, ignoring request.");
+            return;
+         }
+         _handlerDictionary.Add(type, callback);
+      }
    }
 }

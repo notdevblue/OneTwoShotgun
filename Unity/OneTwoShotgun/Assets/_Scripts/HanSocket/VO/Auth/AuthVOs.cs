@@ -1,4 +1,5 @@
 using System;
+using HanSocket.Data;
 
 namespace HanSocket.VO.Auth
 {
@@ -17,30 +18,34 @@ namespace HanSocket.VO.Auth
    }
 
    [Serializable]
-   public class OwnNickname : ValueObject
+   public class LoginResultVO : ValueObject
    {
-      public bool own;
+      public bool success;
 
       /// <summary>
-      /// type: ownnickname
+      /// type: loginresult
       /// </summary>
-      public OwnNickname(bool own)
+      public LoginResultVO(bool success)
       {
-         this.own = own;
+         this.success = success;
       }
    }
 
    [Serializable]
-   public class Sign : ValueObject
+   public class LoginVO : ValueObject
    {
+      public string nickname;
       public string password;
+      public bool signup;
 
       /// <summary>
       /// type: sign
       /// </summary>
-      public Sign(string password)
+      public LoginVO(string nickname, string password)
       {
-         this.password = password;
+         this.nickname  = nickname;
+         this.password  = password;
+         this.signup    = UserData.Instance.signup;
       }
    }
 }

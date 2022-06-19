@@ -7,12 +7,13 @@ namespace HanSocket.Handlers
    {
       private Flag _flag = new Flag();
       private WaitUntil wait;
+      abstract protected string Type { get; }
 
-      protected void Init(string type)
+      protected void Awake()
       {
          wait = new WaitUntil(_flag.Get);
 
-         BufferHandler.Instance.AddHandler(type, payload => {
+         BufferHandler.Instance.AddHandler(Type, payload => {
             OnArrived(payload);
             _flag.Set();
          });
