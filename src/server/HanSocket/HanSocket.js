@@ -14,6 +14,7 @@ class HanSocket {
       this.id = 0;
 
       this.wss = new WebSocket.Server({ port: port }, () => {
+         logger("");
          logger(`[II] Server started on port ${port}.`);
       });
       

@@ -13,10 +13,14 @@ module.exports = {
             const payload = hs.toJson("loginresult", JSON.stringify({
                success: res
             }));
+
+            if (res)
+               ws.nickname = obj.nickname;
+
             hs.send(ws, payload);
          });
-      
-      
-      
+
+
+
    }
 }

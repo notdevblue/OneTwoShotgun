@@ -49,3 +49,23 @@ loginresult: {
    bool: success
 }
 ```
+
+
+### 입장 (클라이언트 -> 서버)
+
+```js
+join: {
+}
+```
+
+### 입장 (서버 -> 클라이언트)
+
+```js
+joined: {
+   int: id,
+   string: nickname
+}
+```
+
+```js
+```

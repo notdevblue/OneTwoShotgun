@@ -9,7 +9,7 @@ namespace HanSocket.Handlers
       private WaitUntil wait;
       abstract protected string Type { get; }
 
-      protected void Awake()
+      protected virtual void Awake()
       {
          wait = new WaitUntil(_flag.Get);
 
