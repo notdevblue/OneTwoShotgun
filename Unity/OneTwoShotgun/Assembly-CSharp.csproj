@@ -68,6 +68,8 @@
      <Compile Include="Assets/_Scripts/HanSocket/VO/Queue/LeftVO.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/VO/Queue/RoomDataVO.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/VO/Player/MoveVO.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/Handlers/Player/MoveToHandler.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/VO/Player/MoveToVO.cs" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets/Packages/WebSocketSharp-netstandard.1.0.1/lib/netstandard2.0/websocket-sharp.xml" />

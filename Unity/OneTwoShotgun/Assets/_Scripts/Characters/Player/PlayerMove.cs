@@ -15,36 +15,53 @@ namespace Characters.Player
       const KeyCode RUN    = KeyCode.LeftShift;
 
       private MoveVO vo = new MoveVO(Vector2.zero);
+      private WaitForSeconds wait;
+
+      [SerializeField] private float fps = 30.0f;
+
+      private void Awake()
+      {
+         wait = new WaitForSeconds(1.0f / fps);
+         StartCoroutine(SendToServer());
+      }
 
       private void Update()
       {
-         vo.delta = Vector2.zero;
          vo.run = false;
 
          if (Input.GetKey(UP))
          {
-            vo.delta.y += 1;
+            vo.delta.y = 1;
          }
          if (Input.GetKey(LEFT))
          {
-            vo.delta.x -= 1;
+            vo.delta.x = -1;
          }
          if (Input.GetKey(RIGHT))
          {
-            vo.delta.x += 1;
+            vo.delta.x = 1;
          }
          if (Input.GetKey(DOWN))
          {
-            vo.delta.y -= 1;
+            vo.delta.y = -1;
          }
          if (Input.GetKey(RUN))
          {
             vo.run = true;
          }
-
-         vo.delta.Normalize();
-
-         WebSocketClient.Instance.Send("move", vo.ToJson());
       }
+
+      IEnumerator SendToServer()
+      {
+         while (true)
+         {
+            vo.delta.Normalize();
+            WebSocketClient.Instance.Send("move", vo.ToJson(), true);
+            vo.delta = Vector2.zero;
+
+            yield return wait;
+         }
+      }
+
    }
 }

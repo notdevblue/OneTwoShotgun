@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace HanSocket.Data
 {
    public class UserData : Singleton<UserData>
@@ -5,5 +7,7 @@ namespace HanSocket.Data
       public int id = -1;
       public bool signup = false;
       public string nickname = "";
+
+      public GameObject player = null;
    }
 }

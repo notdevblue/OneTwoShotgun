@@ -45,9 +45,10 @@ namespace HanSocket
          ws.Close(code, ((reason == null) ? "Client disconnected" : reason));
       }
 
-      public void Send(string type, string payload)
+      public void Send(string type, string payload, bool nolog = false)
       {
-         Debug.Log($"Sending type:{type} payload:{payload}");
+         if(!nolog)
+            Debug.Log($"Sending type:{type} payload:{payload}");
          ws.Send(JsonUtility.ToJson(new DataVO(type, payload)));
       }
 

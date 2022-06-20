@@ -32,7 +32,7 @@ class HanSocket {
       });
    }
 
-   process(connectionCallback, closeCallback) {
+   process(connectionCallback, closeCallback, doNotLogThisTypeOfPacket = [""]) {
       this.wss.on("connection", (ws, req) => {
          
          // save ip address
@@ -68,8 +68,9 @@ class HanSocket {
                logger(`[EE] Error packet pre-handling from client ${ws.id}\r\nPacket: ${data}`, ipAddr);
                return;
             }
-
-            logger(`[  ] Received: ${data.toString()}`, ipAddr)
+            
+            if (doNotLogThisTypeOfPacket.findIndex(x => x == object.type) === -1)
+               logger(`[  ] Received: ${data.toString()}`, ipAddr);
             
             await handle(ws, object.payload);
          });

@@ -1,5 +1,7 @@
 const hs    = require("../HanSocket/HanSocket.js");
+const { setGameLoop, clearGameLoop } = require("./gameloop.js");
 const write = require("./Logger.js");
+const Vector2 = require("./Vector2.js");
 
 class Match
 {
@@ -38,6 +40,7 @@ class Game
       this.queue = true;
       this.players = [];
       this.id = id;
+      this.loopId = -1;
    }
 
    start() {
@@ -63,6 +66,7 @@ class Game
       hs.send(ws, hs.toJson("roomdata", roomdataPayload));
       
       this.players[ws.id] = ws;
+      ws.position = new Vector2(0.0, 0.0);
 
       // 입장 이벤트
       const joinedPayload
@@ -72,6 +76,10 @@ class Game
       this.broadcast(joinedPayload);
 
       write(`[  ] Client ${ws.id} joined match: ${this.id}`, ws.ipAddr);
+
+      if (this.loopId === -1) {
+         this.processPosition();
+      }
    }
 
    leave(ws) {
@@ -81,6 +89,33 @@ class Game
 
       write(`[  ] Client ${ws.id} left match: ${this.id}`, ws.ipAddr);
 
+      if (this.players.length <= 0) {
+         this.stopProcessingPosition();
+      }
+   }
+
+   processPosition() {
+      this.loopId = setGameLoop(() => {
+         this.players.forEach(e => {
+            const payload = JSON.stringify({
+               id: e.id,
+               pos: e.position
+            });
+
+            e.send(JSON.stringify({
+               type: "moveto", payload: payload
+            }));
+         });
+      }, 1000 / 30);
+   }
+
+   stopProcessingPosition() {
+      clearGameLoop(this.loopId);
+      this.loopId = -1;
+   }
+
+   move(ws, delta) {
+      ws.position.addself(delta);
    }
 }
 

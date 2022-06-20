@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Characters.Player;
 using HanSocket.Data;
 using HanSocket.VO.Queue;
 using UI.Queue;
@@ -20,6 +21,7 @@ namespace HanSocket.Handlers.Queue
       protected override void OnFlag()
       {
          GameData.Instance.AddUser(new User(vo.id, vo.nickname));
+         UserData.Instance.player = FindObjectOfType<PlayerMove>().gameObject;
          JoinedCountUI.Instance.UpdateText();
       }
    }

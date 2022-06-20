@@ -14,4 +14,4 @@ hs.process(ws => {
 }, ws => {
    if (ws.match != null)
       ws.match.leave(ws);
-});
+}, ["move"]);
