@@ -39,26 +39,35 @@
      <Compile Include="Assets/_Scripts/HanSocket/Data/UserData.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/Handlers/HandlerBase.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/Handlers/Auth/LoginRequestHandler.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/Data/User.cs" />
+     <Compile Include="Assets/_Scripts/UI/Queue/JoinedCountUI.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/Handlers/Init/InitDataHandler.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/WebSocketClient.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/VO/ValueObject.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/Singleton.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/VO/Init/InitVO.cs" />
+     <Compile Include="Assets/_Scripts/UI/Auth/PasswordInputUI.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/MonoSingleton.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/Handlers/Auth/LoginResultHandler.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/VO/Auth/AuthVOs.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/Handlers/Auth/SignupHandler.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/VO/DataVO.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/VO/Queue/JoinedVO.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/Data/GameData.cs" />
      <Compile Include="Assets/_Scripts/UI/Auth/NicknameInputUI.cs" />
      <Compile Include="Assets/_Scripts/UI/UIManager.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/Flag.cs" />
-     <Compile Include="Assets/_Scripts/HanSocket/BufferHandler.cs" />
-     <Compile Include="Assets/_Scripts/HanSocket/Handlers/Auth/SignupHandler.cs" />
-     <Compile Include="Assets/_Scripts/UI/Auth/PasswordInputUI.cs" />
-     <Compile Include="Assets/_Scripts/HanSocket/Handlers/Init/InitDataHandler.cs" />
-     <Compile Include="Assets/_Scripts/HanSocket/VO/Init/InitVO.cs" />
-     <Compile Include="Assets/_Scripts/HanSocket/Handlers/Auth/LoginResultHandler.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/Handlers/Queue/JoinedHandler.cs" />
-     <Compile Include="Assets/_Scripts/HanSocket/VO/Queue/JoinedVO.cs" />
-     <Compile Include="Assets/_Scripts/UI/Queue/JoinedCountUI.cs" />
-     <Compile Include="Assets/_Scripts/HanSocket/Data/GameData.cs" />
-     <Compile Include="Assets/_Scripts/HanSocket/Data/User.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/BufferHandler.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/Sender/JoinSender.cs" />
+     <Compile Include="Assets/_Scripts/Characters/Player/PlayerMove.cs" />
+     <Compile Include="Assets/_Scripts/Characters/Player/PlayerShoot.cs" />
+     <Compile Include="Assets/_Scripts/Characters/Player/PlayerHealth.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/Handlers/Queue/LeftHandler.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/Handlers/Queue/RoomDataHandler.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/VO/Queue/LeftVO.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/VO/Queue/RoomDataVO.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/VO/Player/MoveVO.cs" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets/Packages/WebSocketSharp-netstandard.1.0.1/lib/netstandard2.0/websocket-sharp.xml" />
@@ -932,6 +941,18 @@
     <ProjectReference Include="Unity.VisualScripting.State.csproj">
       <Project>{a73ff5e5-c287-66f5-e2c2-435e50053f8e}</Project>
       <Name>Unity.VisualScripting.State</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Sysroot.Linux_x86_64.csproj">
+      <Project>{91365875-e5c1-597b-9ed5-fac2e555417f}</Project>
+      <Name>Unity.Sysroot.Linux_x86_64</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Toolchain.Linux-x86_64.csproj">
+      <Project>{19c90db5-d28d-16b5-3255-2e9a5762f792}</Project>
+      <Name>Unity.Toolchain.Linux-x86_64</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.SysrootPackage.Editor.csproj">
+      <Project>{0726adad-6052-ab60-e7d8-c8482e65aecf}</Project>
+      <Name>Unity.SysrootPackage.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

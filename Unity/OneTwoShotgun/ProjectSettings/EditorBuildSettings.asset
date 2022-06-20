@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Auth.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/QueueMenu.unity
+    guid: b61d7c19e59600a0ea84356a5f6b25e4
   m_configObjects: {}

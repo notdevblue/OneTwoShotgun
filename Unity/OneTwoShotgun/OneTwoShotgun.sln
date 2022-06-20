@@ -145,6 +145,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.ShaderGraph.Utilities
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.VisualScripting.Shared.Editor", "Unity.VisualScripting.Shared.Editor.csproj", "{fd32ef8e-9906-5c1e-f8b0-f5303f197994}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.SysrootPackage.Editor", "Unity.SysrootPackage.Editor.csproj", "{0726adad-6052-ab60-e7d8-c8482e65aecf}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.Sysroot.Linux_x86_64", "Unity.Sysroot.Linux_x86_64.csproj", "{91365875-e5c1-597b-9ed5-fac2e555417f}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.Toolchain.Linux-x86_64", "Unity.Toolchain.Linux-x86_64.csproj", "{19c90db5-d28d-16b5-3255-2e9a5762f792}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -294,6 +300,12 @@ Global
 		{9692fa17-13a0-c58a-a372-beef1679d430}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{fd32ef8e-9906-5c1e-f8b0-f5303f197994}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{fd32ef8e-9906-5c1e-f8b0-f5303f197994}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0726adad-6052-ab60-e7d8-c8482e65aecf}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0726adad-6052-ab60-e7d8-c8482e65aecf}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91365875-e5c1-597b-9ed5-fac2e555417f}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91365875-e5c1-597b-9ed5-fac2e555417f}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19c90db5-d28d-16b5-3255-2e9a5762f792}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19c90db5-d28d-16b5-3255-2e9a5762f792}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

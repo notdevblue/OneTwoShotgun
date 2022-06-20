@@ -4,11 +4,11 @@ using HanSocket.Data;
 
 namespace UI.Queue
 {   
-   public class JoinedCountUI : MonoBehaviour
+   public class JoinedCountUI : MonoSingleton<JoinedCountUI>
    {
       private TMP_Text _joinedCountText;
 
-      private void Awake()
+      private void Start()
       {
          _joinedCountText = GetComponentInChildren<TMP_Text>();
       }

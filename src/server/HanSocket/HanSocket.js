@@ -32,7 +32,7 @@ class HanSocket {
       });
    }
 
-   process(connectionCallback) {
+   process(connectionCallback, closeCallback) {
       this.wss.on("connection", (ws, req) => {
          
          // save ip address
@@ -79,6 +79,9 @@ class HanSocket {
             logger(`[II] Client disconnected, code: ${code}, reason: ${reason}`, ipAddr);
             this.clients[ws.id] = null;
             this.clients.splice(ws.id, 1);
+
+            if (closeCallback != null)
+               closeCallback(ws);
          });
       });
    }

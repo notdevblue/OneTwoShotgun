@@ -8,6 +8,9 @@ namespace HanSocket.VO.Queue
       public int id;
       public string nickname;
 
+      /// <summary>
+      /// type; joiend
+      /// </summary>
       public JoinedVO(int id, string nickname)
       {
          this.id = id;

@@ -30,6 +30,8 @@ namespace HanSocket
          };
 
          Connect();
+
+         DontDestroyOnLoad(this.gameObject);
       }
 
       public void Connect()

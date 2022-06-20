@@ -11,4 +11,7 @@ hs.process(ws => {
    });
 
    hs.send(ws, hs.toJson("init", payload));
+}, ws => {
+   if (ws.match != null)
+      ws.match.leave(ws);
 });

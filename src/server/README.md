@@ -23,6 +23,8 @@ sign: {
 }
 ```
 
+<br/>
+
 ### 인증 (서버 -> 클라이언트)
 
 <br/>
@@ -50,15 +52,18 @@ loginresult: {
 }
 ```
 
+<br/>
 
-### 입장 (클라이언트 -> 서버)
+### 큐 (클라이언트 -> 서버)
 
 ```js
 join: {
 }
 ```
 
-### 입장 (서버 -> 클라이언트)
+<br/>
+
+### 큐 (서버 -> 클라이언트)
 
 ```js
 joined: {
@@ -67,5 +72,92 @@ joined: {
 }
 ```
 
+<br/>
+
 ```js
+left: {
+   int: id
+}
+```
+
+<br/>
+
+```js
+roomdata: {
+   List<joined> userlist
+}
+```
+
+<br/>
+
+```js
+gamestart: {
+}
+```
+
+<br/>
+
+
+### 플레이어 (클라이언트 -> 서버)
+
+```js
+move: {
+   Vector2: delta,
+   bool: run
+}
+```
+
+<br/>
+
+
+```js
+fire: {
+   float: angle
+}
+```
+
+<br/>
+
+### 플레이어 (서버 -> 클라이언트)
+
+```js
+playerinit: {
+   int: hp,
+   Vector2: pos
+}
+```
+
+<br/>
+
+```js
+moveto: {
+   int: id,
+   Vector2: target
+}
+```
+
+<br/>
+
+```js
+fired: {
+   int id,
+   List<float> angles // 총알 발사 각도 (샷건이니까)
+}
+```
+
+<br/>
+
+```js
+hit: {
+   int id,
+   int damage
+}
+```
+
+<br/>
+
+```js
+dead: {
+   int id
+}
 ```

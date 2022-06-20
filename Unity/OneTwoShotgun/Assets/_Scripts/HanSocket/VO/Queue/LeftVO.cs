@@ -1,16 +1,16 @@
 using System;
 
-namespace HanSocket.VO
+namespace HanSocket.VO.Queue
 {
    [Serializable]
-   public class InitVO : ValueObject
+   public class LeftVO : ValueObject
    {
       public int id;
 
       /// <summary>
-      /// type: init
+      /// type: left
       /// </summary>
-      public InitVO(int id)
+      public LeftVO(int id)
       {
          this.id = id;
       }

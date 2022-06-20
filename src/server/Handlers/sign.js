@@ -14,8 +14,10 @@ module.exports = {
                success: res
             }));
 
-            if (res)
+            if (res) {
                ws.nickname = obj.nickname;
+               ws.loggedin = true;
+            }
 
             hs.send(ws, payload);
          });
