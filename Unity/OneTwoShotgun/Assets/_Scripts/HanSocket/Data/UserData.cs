@@ -8,6 +8,6 @@ namespace HanSocket.Data
       public bool signup = false;
       public string nickname = "";
 
-      public GameObject player = null;
+      public User Player { get; set; }
    }
 }

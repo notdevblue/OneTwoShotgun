@@ -10,8 +10,9 @@ module.exports = {
          return;
       }
 
-      ws.match    = Match.currentQueueMatch();
-      ws.position = new Vector2(0, 0);
+      ws.match          = Match.currentQueueMatch();
+      ws.position       = new Vector2(0.0, 0.0);
+      ws.deltaPosition  = new Vector2(0.0, 0.0);
       ws.match.join(ws);
    }
 };

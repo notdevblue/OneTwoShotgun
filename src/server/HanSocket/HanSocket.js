@@ -12,6 +12,7 @@ class HanSocket {
       this.clients = [];
       this.handlers = [];
       this.id = 0;
+      this.logIgnore;
 
       this.wss = new WebSocket.Server({ port: port }, () => {
          logger("");
@@ -33,6 +34,8 @@ class HanSocket {
    }
 
    process(connectionCallback, closeCallback, doNotLogThisTypeOfPacket = [""]) {
+      this.logIgnore = doNotLogThisTypeOfPacket;
+
       this.wss.on("connection", (ws, req) => {
          
          // save ip address
@@ -69,7 +72,7 @@ class HanSocket {
                return;
             }
             
-            if (doNotLogThisTypeOfPacket.findIndex(x => x == object.type) === -1)
+            if (this.logIgnore.findIndex(x => x == object.type) === -1)
                logger(`[  ] Received: ${data.toString()}`, ipAddr);
             
             await handle(ws, object.payload);

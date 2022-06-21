@@ -3,6 +3,21 @@ const { setGameLoop, clearGameLoop } = require("./gameloop.js");
 const write = require("./Logger.js");
 const Vector2 = require("./Vector2.js");
 
+// let ss = [];
+// ss["an"] = {a:1};
+// ss["a2"] = {b:2};
+// ss["aff"] = {c:3};
+
+// console.log(ss);
+// delete (ss["an"]);
+
+// // let idx = ss.indexOf(null);
+// // console.log(idx);
+
+// // ss.splice(idx, 1);
+
+// console.log(ss);
+
 class Match
 {
    constructor() {
@@ -41,6 +56,7 @@ class Game
       this.players = [];
       this.id = id;
       this.loopId = -1;
+      this.playerSpeed = 8;
    }
 
    start() {
@@ -66,6 +82,7 @@ class Game
       hs.send(ws, hs.toJson("roomdata", roomdataPayload));
       
       this.players[ws.id] = ws;
+
       ws.position = new Vector2(0.0, 0.0);
 
       // 입장 이벤트
@@ -85,26 +102,35 @@ class Game
    leave(ws) {
       this.broadcast(hs.toJson("left", JSON.stringify({ id: ws.id })));
 
-      this.players.splice(this.players.indexOf(ws.id), 1);
+      delete this.players[ws.id];
 
-      write(`[  ] Client ${ws.id} left match: ${this.id}`, ws.ipAddr);
+      write(`[II] Client ${ws.id} left match: ${this.id}`, ws.ipAddr);
 
-      if (this.players.length <= 0) {
+      if (Object.keys(this.players).length <= 0) {
+         write(`[II] Game ${this.id} loop terminated`);
          this.stopProcessingPosition();
       }
    }
 
    processPosition() {
-      this.loopId = setGameLoop(() => {
+      this.loopId = setGameLoop(deltaTime => {
          this.players.forEach(e => {
+
+            e.position.x +=
+               e.deltaPosition.x * deltaTime * this.playerSpeed;
+            e.position.y +=
+               e.deltaPosition.y * deltaTime * this.playerSpeed;
+
             const payload = JSON.stringify({
                id: e.id,
                pos: e.position
             });
 
-            e.send(JSON.stringify({
-               type: "moveto", payload: payload
-            }));
+            this.players.forEach(ws => {
+               ws.send(hs.toJson("moveto", payload));
+            });
+            
+            e.deltaPosition.reset();
          });
       }, 1000 / 30);
    }
@@ -115,7 +141,18 @@ class Game
    }
 
    move(ws, delta) {
-      ws.position.addself(delta);
+      delta.x = Math.sign(delta.x);
+      delta.y = Math.sign(delta.y);
+      ws.deltaPosition.addself(delta);
+   }
+
+   fire(ws, angle) {
+      const payload = JSON.stringify({
+         id: ws.id,
+         angle: angle
+      });
+      
+      this.broadcast(hs.toJson("fired", payload));
    }
 }
 

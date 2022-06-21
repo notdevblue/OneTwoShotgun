@@ -141,7 +141,7 @@ moveto: {
 ```js
 fired: {
    int id,
-   List<float> angles // 총알 발사 각도 (샷건이니까)
+   float: angle
 }
 ```
 

@@ -63,10 +63,10 @@
      <Compile Include="Library/PackageCache/com.unity.collab-proxy@1.15.16/Editor/PlasticSCM/Views/Changesets/ChangesetsListView.cs" />
      <Compile Include="Library/PackageCache/com.unity.collab-proxy@1.15.16/Editor/PlasticSCM/AssetMenu/AssetMenuOperations.cs" />
      <Compile Include="Library/PackageCache/com.unity.collab-proxy@1.15.16/Editor/PlasticSCM/UI/Progress/DrawProgressForDialogs.cs" />
-     <Compile Include="Library/PackageCache/com.unity.collab-proxy@1.15.16/Editor/PlasticSCM/Views/IncomingChanges/Gluon/IncomingChangesTreeView.cs" />
      <Compile Include="Library/PackageCache/com.unity.collab-proxy@1.15.16/Editor/PlasticSCM/UI/Avatar/AvatarImages.cs" />
      <Compile Include="Library/PackageCache/com.unity.collab-proxy@1.15.16/Editor/PlasticSCM/AssetMenu/AssetMenuRoutingOperations.cs" />
      <Compile Include="Library/PackageCache/com.unity.collab-proxy@1.15.16/Editor/PlasticSCM/PlasticWindow.cs" />
+     <Compile Include="Library/PackageCache/com.unity.collab-proxy@1.15.16/Editor/PlasticSCM/Views/IncomingChanges/Gluon/IncomingChangesTreeView.cs" />
      <Compile Include="Library/PackageCache/com.unity.collab-proxy@1.15.16/Editor/PlasticSCM/UI/UnityEvents.cs" />
      <Compile Include="Library/PackageCache/com.unity.collab-proxy@1.15.16/Editor/PlasticSCM/Developer/UpdateReport/UpdateReportListHeaderState.cs" />
      <Compile Include="Library/PackageCache/com.unity.collab-proxy@1.15.16/Editor/PlasticSCM/Views/IncomingChanges/Developer/DirectoryConflicts/DrawDirectoryResolutionPanel.cs" />

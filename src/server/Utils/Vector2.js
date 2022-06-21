@@ -15,6 +15,11 @@ class Vector2
       this.y += right.y;
    }
 
+   reset() {
+      this.x = 0.0;
+      this.y = 0.0;
+   }
+
 
 }
 

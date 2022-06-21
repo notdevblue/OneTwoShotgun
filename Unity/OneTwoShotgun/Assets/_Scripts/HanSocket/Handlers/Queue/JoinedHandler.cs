@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Characters.Player;
+using Characters.Pool;
 using HanSocket.Data;
 using HanSocket.VO.Queue;
 using UI.Queue;
@@ -20,8 +21,18 @@ namespace HanSocket.Handlers.Queue
 
       protected override void OnFlag()
       {
-         GameData.Instance.AddUser(new User(vo.id, vo.nickname));
-         UserData.Instance.player = FindObjectOfType<PlayerMove>().gameObject;
+         User usr = CharacterPool.Instance.Get();
+         usr.Init(vo.id, vo.nickname);
+         
+         if (vo.id == UserData.Instance.id)
+         {
+            usr.gameObject.AddComponent<PlayerMove>();
+            UserData.Instance.Player = usr;
+         }
+
+         usr.transform.SetParent(null);
+
+         GameData.Instance.AddUser(usr);
          JoinedCountUI.Instance.UpdateText();
       }
    }

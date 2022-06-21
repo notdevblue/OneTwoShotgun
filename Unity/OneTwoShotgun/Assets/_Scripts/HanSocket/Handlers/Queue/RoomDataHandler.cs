@@ -1,3 +1,4 @@
+using Characters.Pool;
 using HanSocket.Data;
 using HanSocket.VO.Queue;
 using UI.Queue;
@@ -19,7 +20,10 @@ namespace HanSocket.Handlers.Queue
       protected override void OnFlag()
       {
          vo.userlist.ForEach(e => {
-            GameData.Instance.AddUser(new User(e.id, e.nickname));
+            User usr = CharacterPool.Instance.Get();
+            usr.Init(e.id, e.nickname);
+            usr.transform.SetParent(null);
+            GameData.Instance.AddUser(usr);
          });
 
          JoinedCountUI.Instance.UpdateText();

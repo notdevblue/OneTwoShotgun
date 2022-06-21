@@ -16,18 +16,26 @@ namespace HanSocket.Handlers.Player
       {
          vo = JsonUtility.FromJson<MoveToVO>(payload);
 
-         Debug.LogError(vo.id);
-         Debug.LogError(vo.pos); 여기 pos 에러 있음
          _queue.Enqueue(vo);
       }
 
       protected override void OnFlag()
       {
-         if (_queue.TryDequeue(out var res))
+         while (_queue.Count > 0)
          {
-            if (res.id == UserData.Instance.id) {
-               Debug.LogError("AAAA");
-               UserData.Instance.player.transform.position = res.pos;
+            if (_queue.TryDequeue(out var res))
+            {
+               if (vo.id == UserData.Instance.id)
+               {
+                  if (UserData.Instance.Player != null)
+                     UserData.Instance.Player.transform.position = res.pos;
+               }
+               else
+               {
+                  User user = GameData.Instance.GetUser(res.id);
+                  if (user != null)
+                     user.transform.position = res.pos;
+               }
             }
          }
       }

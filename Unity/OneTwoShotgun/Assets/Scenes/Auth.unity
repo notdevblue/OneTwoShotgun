@@ -2063,7 +2063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a185fcd6ae792cc5ea4d8a45128d2d34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ipAddr: localhost
+  ipAddr: 172.31.2.13
   port: 48000
 --- !u!1 &1553008329
 GameObject:

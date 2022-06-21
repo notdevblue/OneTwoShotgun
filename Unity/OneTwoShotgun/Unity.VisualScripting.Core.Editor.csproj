@@ -77,9 +77,9 @@
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Editor/VisualScripting.Core/SerializedProperties/SerializedPropertyProviderProvider.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Editor/VisualScripting.Core/Plugin/Changelogs/LegacyLudiqGraphs/Changelog_1_2_4.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Editor/VisualScripting.Core/Descriptors/IDescriptor.cs" />
-     <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Editor/VisualScripting.Core/Analytics/NodeUsageAnalytics.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Editor/VisualScripting.Core/Dependencies/ReorderableList/Internal/ReorderableListResources.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Editor/VisualScripting.Core/Windows/Wizard.cs" />
+     <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Editor/VisualScripting.Core/Analytics/NodeUsageAnalytics.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Editor/VisualScripting.Core/Descriptors/Description.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Editor/VisualScripting.Core/Windows/Page.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Editor/VisualScripting.Core/Interface/SharedEditorTextureDictionary.cs" />
