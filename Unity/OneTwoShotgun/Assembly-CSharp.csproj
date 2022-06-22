@@ -39,8 +39,11 @@
      <Compile Include="Assets/_Scripts/HanSocket/Data/UserData.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/Handlers/HandlerBase.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/Handlers/Player/MoveToHandler.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/VO/Player/FireVO.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/VO/Player/MoveVO.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/Sender/JoinSender.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/VO/Player/FiredVO.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/Handlers/Player/FireHandler.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/Handlers/Auth/LoginRequestHandler.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/Data/User.cs" />
      <Compile Include="Assets/_Scripts/UI/Queue/JoinedCountUI.cs" />
@@ -71,9 +74,8 @@
      <Compile Include="Assets/_Scripts/HanSocket/Flag.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/Handlers/Queue/JoinedHandler.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/BufferHandler.cs" />
-     <Compile Include="Assets/_Scripts/HanSocket/VO/Player/FireVO.cs" />
-     <Compile Include="Assets/_Scripts/HanSocket/Handlers/Player/FireHandler.cs" />
-     <Compile Include="Assets/_Scripts/HanSocket/VO/Player/FiredVO.cs" />
+     <Compile Include="Assets/_Scripts/Characters/Pool/ShellPool.cs" />
+     <Compile Include="Assets/_Scripts/Characters/Player/Shell.cs" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets/Packages/WebSocketSharp-netstandard.1.0.1/lib/netstandard2.0/websocket-sharp.xml" />

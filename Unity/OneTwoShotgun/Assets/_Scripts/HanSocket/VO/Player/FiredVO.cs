@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace HanSocket.VO.Player
 {   
@@ -6,15 +8,19 @@ namespace HanSocket.VO.Player
    public class FiredVO : ValueObject
    {
       public int id = -1;
-      public float angle = 0.0f;
+      public Vector2 firedPos;
+      public List<float> angles = new List<float>();
+      public float speed;
+      public float alivefor;
 
       /// <summary>
       /// type: fired
       /// </summary>
-      public FiredVO(int id, float angle)
+      public FiredVO(int id, Vector2 firedPos, List<float> angles)
       {
          this.id = id;
-         this.angle = angle;
+         this.firedPos = firedPos;
+         this.angles = angles;
       }
    }
 }

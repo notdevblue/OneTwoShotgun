@@ -71,9 +71,9 @@
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Runtime/VisualScripting.Core/Graphs/IGraphElementWithDebugData.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Runtime/VisualScripting.Core/Events/MessageListeners/MonoBehaviourMessageListeners/UnityOnTriggerEnterMessageListener.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Runtime/VisualScripting.Core/Events/IEventGraph.cs" />
-     <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Runtime/VisualScripting.Core/Dependencies/FullSerializer/Converters/Unity/Bounds_DirectConverter.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Runtime/VisualScripting.Core/Events/MessageListeners/UIEventsInterfacesListeners/UnityOnDropMessageListener.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Runtime/VisualScripting.Core/Events/MessageListeners/UIEventsInterfacesListeners/UnityOnPointerUpMessageListener.cs" />
+     <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Runtime/VisualScripting.Core/Dependencies/FullSerializer/Converters/Unity/Bounds_DirectConverter.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Runtime/VisualScripting.Core/Events/MessageListeners/MonoBehaviourMessageListeners/UnityOnJointBreakMessageListener.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Runtime/VisualScripting.Core/EditorBinding/EditorTimeBinding.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.6/Runtime/VisualScripting.Core/Ensure/Extensions/XComparable.cs" />

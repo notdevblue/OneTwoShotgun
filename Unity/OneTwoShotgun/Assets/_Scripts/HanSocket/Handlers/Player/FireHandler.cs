@@ -1,32 +1,45 @@
 using HanSocket.Data;
 using HanSocket.VO.Player;
 using UnityEngine;
+using System.Collections.Concurrent;
+using Characters.Player.Pool;
 
 namespace HanSocket.Handlers.Player
 {
    public class FireHandler : HandlerBase
    {
       protected override string Type => "fired";
-      private FiredVO vo = null;
+
+      private ConcurrentQueue<FiredVO> _queue
+         = new ConcurrentQueue<FiredVO>();
 
       protected override void OnArrived(string payload)
       {
-         vo = JsonUtility.FromJson<FiredVO>(payload);
+         _queue.Enqueue(JsonUtility.FromJson<FiredVO>(payload));
       }
 
       protected override void OnFlag()
       {
-         Vector3 dirVector
-            = Quaternion.AngleAxis(vo.angle, Vector3.right)
-               * Vector3.forward;
+         while (_queue.Count > 0)
+         {
+            if (_queue.TryDequeue(out var vo))
+            {
+               vo.angles.ForEach(e => {
+                  Vector3 dirVector
+                     = Quaternion.AngleAxis(e, Vector3.right)
+                        * Vector3.forward;
 
-         dirVector.x = dirVector.z;
-         dirVector.y *= -1.0f;
-         dirVector.z = 0.0f;
+                  dirVector.x = dirVector.z;
+                  dirVector.y *= -1.0f;
+                  dirVector.z = 0.0f;
 
-         User user = GameData.Instance.GetUser(vo.id);
+                  User user = GameData.Instance.GetUser(vo.id);
+                  Debug.DrawRay(vo.firedPos, dirVector * 1.0f, Color.red, 1.0f);
 
-         // TODO: 히히 샷건 발사
+                  ShellPool.Instance.Get().Fire(vo.firedPos, dirVector, vo.speed, vo.alivefor);
+               });
+            }
+         }
       }
    }
 }

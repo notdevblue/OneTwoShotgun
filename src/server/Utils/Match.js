@@ -56,7 +56,11 @@ class Game
       this.players = [];
       this.id = id;
       this.loopId = -1;
+
       this.playerSpeed = 8;
+      this.shellAngle = 25.0;
+      this.shellLifetime = 10.0;
+      this.shellSpeed = 10.0;
    }
 
    start() {
@@ -146,10 +150,21 @@ class Game
       ws.deltaPosition.addself(delta);
    }
 
-   fire(ws, angle) {
+   fire(ws, angle, firedPos) {
+      let angles = [];
+      let halfAngle = this.shellAngle / 2.0;
+
+      angles.push(angle + (Math.random() * halfAngle + halfAngle));
+      angles.push(angle + (Math.random() * halfAngle));
+      angles.push(angle + (-1.0 * (Math.random() * halfAngle + halfAngle)));
+      angles.push(angle + (-1.0 * (Math.random() * halfAngle)));
+
       const payload = JSON.stringify({
          id: ws.id,
-         angle: angle
+         firedPos: firedPos,
+         angles: angles,
+         speed: this.shellSpeed,
+         alivefor: this.shellLifetime
       });
       
       this.broadcast(hs.toJson("fired", payload));

@@ -26,7 +26,7 @@ namespace Characters.Player
             float angle = Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg;
 
             WebSocketClient.Instance.Send("fire",
-               JsonUtility.ToJson(new FireVO(angle)));
+               JsonUtility.ToJson(new FireVO(angle, transform.position)));
          }
       }
    }

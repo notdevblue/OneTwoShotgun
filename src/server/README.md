@@ -141,7 +141,8 @@ moveto: {
 ```js
 fired: {
    int id,
-   float: angle
+   Vector2: firedPos,
+   List<float>: angles
 }
 ```
 

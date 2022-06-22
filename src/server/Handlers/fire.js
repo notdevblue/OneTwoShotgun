@@ -3,6 +3,8 @@ module.exports = {
    handle: (ws, data) => {
       if (ws.match == null) return;
 
-      ws.match.fire(ws, JSON.parse(data).angle);
+      const payload = JSON.parse(data);
+
+      ws.match.fire(ws, payload.angle, payload.firedPos);
    }
 }

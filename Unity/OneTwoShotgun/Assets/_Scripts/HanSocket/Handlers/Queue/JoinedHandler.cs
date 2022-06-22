@@ -27,6 +27,7 @@ namespace HanSocket.Handlers.Queue
          if (vo.id == UserData.Instance.id)
          {
             usr.gameObject.AddComponent<PlayerMove>();
+            usr.gameObject.AddComponent<PlayerShoot>();
             UserData.Instance.Player = usr;
          }
 
