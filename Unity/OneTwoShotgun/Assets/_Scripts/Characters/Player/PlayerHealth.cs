@@ -10,19 +10,12 @@ namespace Characters.Player
    {
       private int _hp;
 
-      public UnityEvent<int> OnDamage;
-
-      public void Damage()
-      {
-         WebSocketClient.Instance.Send("hit", "");
-      }
+      public UnityEvent<int> OnHpChange;
 
       public void SetHP(int hp)
       {
          _hp = hp;
-
-         if (_hp > hp)
-            OnDamage?.Invoke(_hp);
+         OnHpChange?.Invoke(_hp);
       }
    }
 }

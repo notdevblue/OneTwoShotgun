@@ -22,7 +22,6 @@ namespace HanSocket.Handlers.Player
          {
             if (_queue.TryDequeue(out var vo))
             {
-               Debug.LogError("피격 처리!!!");
                GameData.Instance.GetUser(vo.id)
                   ?.GetComponent<IDamageable>()
                   ?.SetHP(vo.hp);

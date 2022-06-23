@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 73623157073134845}
   - component: {fileID: -4870524961493729556}
   - component: {fileID: 2033326148044216452}
+  - component: {fileID: 4905557900989390553}
   m_Layer: 7
   m_Name: RemotePlayer
   m_TagString: Untagged
@@ -130,6 +131,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &4905557900989390553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73623157073134844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 831ea1ca88490044dbeacda3f9290296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnHpChange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -4870524961493729556}
+        m_TargetAssemblyTypeName: HanSocket.Data.User, Assembly-CSharp
+        m_MethodName: SetHP
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &366746615039880140
 GameObject:
   m_ObjectHideFlags: 0

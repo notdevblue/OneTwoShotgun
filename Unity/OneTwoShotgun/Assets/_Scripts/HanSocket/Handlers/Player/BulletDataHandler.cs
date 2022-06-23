@@ -16,6 +16,7 @@ namespace HanSocket.Handlers.Player
       private Dictionary<int, Shell> _shells
          = new Dictionary<int, Shell>();
 
+      private uint _frame = 0;
 
       protected override void OnArrived(string payload)
       {
@@ -38,9 +39,16 @@ namespace HanSocket.Handlers.Player
                   else
                      shell = _shells[e.id];
 
-                  shell.Process(e.id, e.pos);
+                  shell.Process(_frame, e.id, e.pos);
                });
             }
+
+            foreach (var e in _shells)
+            {
+               e.Value.CheckFrame(_frame);
+            }
+
+            ++_frame;
          }
       }
    }
