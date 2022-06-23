@@ -44,7 +44,7 @@ async function updateDeaths(nickname, deaths, callback) {
       });
 }
 
-async function updatWon(nickname, won, callback) {
+async function updateWon(nickname, won, callback) {
    await mysql.query("UPDATE `Account` SET `won`=`won`+? "
       + "WHERE `nickname`=?", [won, nickname]).then(res => {
          write(`[II] ${nickname}: Added ${won} won.`);

@@ -144,14 +144,6 @@ moveto: {
 
 <br/>
 
-<!-- ```js
-fired: {
-   int id,
-   Vector2: firedPos,
-   List<float>: angles
-}
-``` -->
-
 ```js
 bulletdata: {
    List<bullets>: bullets {
@@ -202,6 +194,11 @@ loadedtimeout: {
 ```js
 allloaded: {
 }
+```
+
+```js
+win: {
+} // 이긴 사람한테만 보내짐
 ```
 
 <br/>

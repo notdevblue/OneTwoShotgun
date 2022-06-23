@@ -2,6 +2,7 @@ const hs    = require("../HanSocket/HanSocket.js");
 const { setGameLoop, clearGameLoop } = require("./gameloop.js");
 const write = require("./Logger.js");
 const Vector2 = require("./Vector2.js");
+const mysql = require("./mysql-extensions.js");
 
 class Match
 {
@@ -41,11 +42,15 @@ class Game
       this.players = [];
       this.bullets = [];
       this.id = id;
+
       this.moveloopId = -1;
       this.bulletloopId = -1;
+      this.queueId = -1;
+      this.timeoutId = -1;
 
       this.playerSpeed = 8;
       this.playerHp = 100;
+      this.firedelay = 2000; // ms
 
       this.shellAngle = 25.0;
       this.shellLifetime = 10000; // ms
@@ -54,12 +59,13 @@ class Game
       this.shellCount = 4;
       this.shellId = 0;
       this.shellCollisionDistance = 0.5;
-      this.firedelay = 2000; // ms
 
       this.halfAngle = this.shellAngle / 2.0;
       this.halfCount = this.shellCount / 2.0;
 
       this.queueTimeMs = 5000;
+      this.loadingTimeoutMs = 120 * 1000; // 2분
+
       this.moveFps = 1000 / 30;
       this.bulletFps = 1000 / 15;
    }
@@ -114,6 +120,12 @@ class Game
       if (this.bulletloopId === -1) {
          this.processBullet();
       } 
+
+      if (Object.keys(this.players).length >= 2) {
+         this.queueId = setTimeout(() => {
+            this.start();
+         }, this.queueTimeMs);
+      }
    }
 
    leave(ws) {
@@ -122,6 +134,10 @@ class Game
       delete this.players[ws.id];
 
       write(`[II] Client ${ws.id} left match: ${this.id}`, ws.ipAddr);
+
+      if (Object.keys(this.players).length < 2) {
+         clearInterval(this.queueId);
+      }
 
       if (Object.keys(this.players).length <= 0) {
          write(`[II] Game ${this.id} loop terminated`);
@@ -191,7 +207,7 @@ class Game
                if (Math.sqrt(x * x + y * y) <= this.shellCollisionDistance) {
                   keepgoing = false;
                   this.bullets.splice(this.bullets.indexOf(e), 1);
-                  this.hit(p);
+                  this.hit(p, e);
                   return;
                }
             });
@@ -258,13 +274,13 @@ class Game
       this.bullets.findIndex(x => x == shell);
    }
 
-   hit(ws) {
-      if (ws.dead) return;
+   hit(ws, shell) {
+      if (ws.dead || !this.queue) return;
 
       ws.hp -= this.shellDamage;
 
       if (ws.hp <= 0) {
-         this.dead(ws);
+         this.dead(ws, shell);
          return;
       }
 
@@ -276,17 +292,67 @@ class Game
       this.broadcast(hs.toJson("hit", payload));
    }
 
-   dead(ws) {
+   dead(ws, shell) {
       ws.dead = true;
       const payload = JSON.stringify({
          id: ws.id
       });
       
       this.broadcast(hs.toJson("dead", payload));
+
+      let killer = this.players[shell.firedby];
+      mysql.updateKills(killer.nickname, 1);
+      mysql.updateDeaths(ws.nickname, 1);
+
+      if (!this.queue) {
+         let notdeadCount = 0;
+         this.players.forEach(e => {
+            notdeadCount += e.dead;
+         });
+
+         if (notdeadCount <= 1) {
+            this.broadcast(hs.toJson("win", ""));
+            mysql.updateWon(killer.nickname, 1);
+         }
+      }
    }
 
    gamestart() {
       this.broadcast(hs.toJson("gamestart"));
+
+      this.players.forEach(e => e.loaded = false);
+
+      this.timeoutId = setTimeout(() => {
+         this.players.forEach(e => {
+            if (!e.loaded) {
+               this.broadcast(hs.toJson("loadedtimeout",
+                  JSON.stringify({
+                     id: e.id
+               })));
+            }
+         });
+      }, this.loadingTimeoutMs);
+   }
+
+   loaded(ws) {
+      ws.loaded = true;
+
+      let allLoaded = true;
+
+      this.players.forEach(e => {
+         if (!e.loaded)
+            allLoaded = false;
+      });
+
+      if (allLoaded) {
+         try {
+            clearInterval(this.timeoutId);
+         } catch { }
+            
+         this.timeoutId = -1;
+
+         this.broadcast(hs.toJson("allloaded", ""));
+      }
    }
 }
 

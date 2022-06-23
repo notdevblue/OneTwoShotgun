@@ -409,6 +409,7 @@ GameObject:
   - component: {fileID: 714993151}
   - component: {fileID: 714993153}
   - component: {fileID: 714993152}
+  - component: {fileID: 714993154}
   m_Layer: 0
   m_Name: Queue
   m_TagString: Untagged
@@ -465,6 +466,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 669f5a403fe828064bca7e8adfd19fef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &714993154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714993149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51183cb7f2acffe7fbeae1cb8f26cddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &939089364
