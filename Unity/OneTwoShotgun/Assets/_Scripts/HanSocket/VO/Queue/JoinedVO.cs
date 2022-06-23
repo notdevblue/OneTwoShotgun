@@ -6,6 +6,7 @@ namespace HanSocket.VO.Queue
    public class JoinedVO : ValueObject
    {
       public int id;
+      public int hp;
       public string nickname;
 
       /// <summary>

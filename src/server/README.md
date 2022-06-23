@@ -68,6 +68,7 @@ join: {
 ```js
 joined: {
    int: id,
+   int: hp,
    string: nickname
 }
 ```
@@ -116,6 +117,11 @@ fire: {
 }
 ```
 
+```js
+hit: {
+}
+```
+
 <br/>
 
 ### 플레이어 (서버 -> 클라이언트)
@@ -138,11 +144,20 @@ moveto: {
 
 <br/>
 
-```js
+<!-- ```js
 fired: {
    int id,
    Vector2: firedPos,
    List<float>: angles
+}
+``` -->
+`
+```js
+bulletdata: {
+   List<bullets>: bullets {
+      int: id,
+      Vector2: pos,
+   }
 }
 ```
 
@@ -150,8 +165,8 @@ fired: {
 
 ```js
 hit: {
-   int id,
-   int damage
+   int: id,
+   int: hp
 }
 ```
 
@@ -159,6 +174,34 @@ hit: {
 
 ```js
 dead: {
-   int id
+   int: id
 }
 ```
+
+<br/>
+
+### 인게임 (클라이언트 -> 서버)
+
+```js
+loaded: {
+}
+```
+
+<br/>
+
+### 인게임 (서버 -> 클라이언트)
+
+```js
+loadedtimeout: {
+   int: id
+}
+```
+
+<br/>
+
+```js
+allloaded: {
+}
+```
+
+<br/>

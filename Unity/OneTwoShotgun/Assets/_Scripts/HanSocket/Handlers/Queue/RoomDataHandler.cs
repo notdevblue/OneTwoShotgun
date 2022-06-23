@@ -21,7 +21,7 @@ namespace HanSocket.Handlers.Queue
       {
          vo.userlist.ForEach(e => {
             User usr = CharacterPool.Instance.Get();
-            usr.Init(e.id, e.nickname);
+            usr.Init(e.id, e.hp, e.nickname);
             usr.transform.SetParent(null);
             GameData.Instance.AddUser(usr);
          });

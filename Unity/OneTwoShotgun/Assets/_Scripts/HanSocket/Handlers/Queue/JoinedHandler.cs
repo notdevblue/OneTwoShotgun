@@ -22,12 +22,13 @@ namespace HanSocket.Handlers.Queue
       protected override void OnFlag()
       {
          User usr = CharacterPool.Instance.Get();
-         usr.Init(vo.id, vo.nickname);
+         usr.Init(vo.id, vo.hp, vo.nickname);
          
          if (vo.id == UserData.Instance.id)
          {
             usr.gameObject.AddComponent<PlayerMove>();
             usr.gameObject.AddComponent<PlayerShoot>();
+            usr.gameObject.AddComponent<PlayerHealth>();
             UserData.Instance.Player = usr;
          }
 

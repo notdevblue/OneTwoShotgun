@@ -463,8 +463,8 @@
      <Compile Include="Library/PackageCache/com.unity.shadergraph@12.1.6/Editor/Drawing/Views/PropertySheet.cs" />
      <Compile Include="Library/PackageCache/com.unity.shadergraph@12.1.6/Editor/Data/Nodes/Input/Matrix/Matrix4Node.cs" />
      <Compile Include="Library/PackageCache/com.unity.shadergraph@12.1.6/Editor/Generation/Collections/AssetCollection.cs" />
-     <Compile Include="Library/PackageCache/com.unity.shadergraph@12.1.6/Editor/Data/Nodes/Procedural/Shape/RectangleNode.cs" />
      <Compile Include="Library/PackageCache/com.unity.shadergraph@12.1.6/Editor/Data/Nodes/Math/Trigonometry/DegreesToRadiansNode.cs" />
+     <Compile Include="Library/PackageCache/com.unity.shadergraph@12.1.6/Editor/Data/Nodes/Procedural/Shape/RectangleNode.cs" />
      <Compile Include="Library/PackageCache/com.unity.shadergraph@12.1.6/Editor/Data/Graphs/BooleanShaderProperty.cs" />
      <Compile Include="Library/PackageCache/com.unity.shadergraph@12.1.6/Editor/Data/Nodes/GuidEncoder.cs" />
      <Compile Include="Library/PackageCache/com.unity.shadergraph@12.1.6/Editor/Importers/ShaderSubGraphImporter.cs" />
