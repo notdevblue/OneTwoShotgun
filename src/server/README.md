@@ -151,7 +151,7 @@ fired: {
    List<float>: angles
 }
 ``` -->
-`
+
 ```js
 bulletdata: {
    List<bullets>: bullets {

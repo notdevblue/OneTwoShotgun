@@ -3,21 +3,6 @@ const { setGameLoop, clearGameLoop } = require("./gameloop.js");
 const write = require("./Logger.js");
 const Vector2 = require("./Vector2.js");
 
-// let ss = [];
-// ss["an"] = {a:1};
-// ss["a2"] = {b:2};
-// ss["aff"] = {c:3};
-
-// console.log(ss);
-// delete (ss["an"]);
-
-// // let idx = ss.indexOf(null);
-// // console.log(idx);
-
-// // ss.splice(idx, 1);
-
-// console.log(ss);
-
 class Match
 {
    constructor() {
@@ -63,16 +48,19 @@ class Game
       this.playerHp = 100;
 
       this.shellAngle = 25.0;
-      this.shellLifetime = 10.0;
-      this.shellSpeed = 10.0;
+      this.shellLifetime = 10000; // ms
+      this.shellSpeed = 40.0;
       this.shellDamage = 10;
       this.shellCount = 4;
       this.shellId = 0;
+      this.shellCollisionDistance = 0.5;
 
       this.halfAngle = this.shellAngle / 2.0;
       this.halfCount = this.shellCount / 2.0;
 
       this.queueTimeMs = 5000;
+      this.moveFps = 1000 / 30;
+      this.bulletFps = 1000 / 15;
    }
 
    start() {
@@ -89,6 +77,10 @@ class Game
    join(ws) {
       let roomdataPayload;
       let roomdata = [];
+
+      ws.position = new Vector2(0.0, 0.0);
+      ws.hp = this.playerHp;
+      ws.dead = false;
       
       // 방 정보
       this.players.forEach(e => {
@@ -102,10 +94,6 @@ class Game
       hs.send(ws, hs.toJson("roomdata", roomdataPayload));
       
       this.players[ws.id] = ws;
-
-      ws.position = new Vector2(0.0, 0.0);
-      ws.hp = this.playerHp;
-      ws.dead = false;
 
       // 입장 이벤트
       const joinedPayload
@@ -121,6 +109,9 @@ class Game
       if (this.moveloopId === -1) {
          this.processPosition();
       }
+      if (this.bulletloopId === -1) {
+         this.processBullet();
+      } 
    }
 
    leave(ws) {
@@ -133,6 +124,7 @@ class Game
       if (Object.keys(this.players).length <= 0) {
          write(`[II] Game ${this.id} loop terminated`);
          this.stopProcessingPosition();
+         this.stopProcessingBullet();
       }
    }
 
@@ -157,7 +149,7 @@ class Game
             
             e.deltaPosition.reset();
          });
-      }, 1000 / 30);
+      }, this.moveFps);
    }
 
    stopProcessingPosition() {
@@ -174,12 +166,38 @@ class Game
    }
 
    processBullet() {
-      bulletloopId = setGameLoop(deltaTime => {
+      this.bulletloopId = setGameLoop(deltaTime => {
          let bullets = [];
+         let removeTargetIdx = [];
 
          this.bullets.forEach(e => {
-            e.pos.x += delta.x * deltaTime * e.speed;
-            e.pos.y += delta.y * deltaTime * e.speed;
+            let keepgoing = true;
+
+            // 라이프타임 처리
+            if (e.firedat + e.lifetime <= Date.now()) {
+               this.bullets.splice(this.bullets.indexOf(e), 1);
+               return;
+            }
+
+            this.players.forEach(p => {
+               if (p.id == e.firedby) return;
+
+               let x = Math.abs(e.pos.x - p.position.x);
+               let y = Math.abs(e.pos.y - p.position.y);
+               
+               // 충돌 처리
+               if (Math.sqrt(x * x + y * y) <= this.shellCollisionDistance) {
+                  keepgoing = false;
+                  this.bullets.splice(this.bullets.indexOf(e), 1);
+                  this.hit(p);
+                  return;
+               }
+            });
+
+            if (!keepgoing) return;
+
+            e.pos.x += e.delta.x * deltaTime * e.speed;
+            e.pos.y += e.delta.y * deltaTime * e.speed;
 
             bullets.push({
                id: e.id,
@@ -189,87 +207,75 @@ class Game
 
          this.players.forEach(ws => {
             ws.send(hs.toJson("bulletdata", JSON.stringify({
-               bullets: JSON.stringify(bullets)
+               bullets: bullets
             })));
          })
-      }, 1000 / 20);
+      }, this.bulletFps);
    }
 
    stopProcessingBullet() {
-
+      clearGameLoop(this.bulletloopId);
+      this.bulletloopId = -1;
+      this.bullets = [];
    }
 
    fire(ws, angle, firedPos) {
       if (ws.dead) return;
 
-      let angles = [];
-
       for (let i = -this.halfCount; i <= this.halfCount; ++i) {
-         if (i == 0) continue;
-         const pos = JSON.parse(firedPos);
+         // if (i == 0) continue;
 
          let shell = {
-            id: shellId++,
+            id: this.shellId++,
             firedby: ws.id,
+            firedat: Date.now(),
+            lifetime: this.shellLifetime,
             pos: new Vector2(0, 0),
             delta: new Vector2(0, 0),
             speed: this.shellSpeed,
-            angle: angle + (Math.sign(i)
+            angle: (angle + (Math.sign(i)
                * ((Math.random() * this.halfAngle)
-                  + ((Math.abs(i) == this.halfCount) * this.halfAngle)))
+                  + ((Math.abs(i) == this.halfCount) * this.halfAngle)))) * Math.PI / 180
          };
 
-         shell.delta.x = Math.cos(angle);
-         shell.delta.y = Math.sin(angle);
-         shell.pos.x = pos.x;
-         shell.pos.y = pos.y;
+         shell.delta.x = Math.cos(shell.angle);
+         shell.delta.y = Math.sin(shell.angle);
+         shell.pos.x = firedPos.x;
+         shell.pos.y = firedPos.y;
 
-         angles.push(shell.angle);
+         this.bullets.push(shell);
       }
-
-      // https://math.stackexchange.com/questions/180874/convert-angle-radians-to-a-heading-vector
-      // ㄱㅂㅈ 서버사이드 발사 연산
-
-      // const payload = JSON.stringify({
-      //    id: ws.id,
-      //    firedPos: firedPos,
-      //    angles: angles,
-      //    speed: this.shellSpeed,
-      //    alivefor: this.shellLifetime
-      // });
-      
-      // this.broadcast(hs.toJson("fired", payload));
    }
 
    deletebullet(shell) {
       this.bullets.findIndex(x => x == shell);
    }
 
-   hit(id) {
-      let payload;
-      let type;
-
-      let ws = this.players[id];
-
+   hit(ws) {
       if (ws.dead) return;
 
       ws.hp -= this.shellDamage;
 
       if (ws.hp <= 0) {
-         ws.dead = true;
-         payload = JSON.stringify({
-            id: id
-         });
-         type = "dead";
-      } else {
-         payload = JSON.stringify({
-            id: id,
-            hp: ws.hp
-         });
-         type = "hit";
+         this.dead(ws);
+         return;
       }
 
-      this.broadcast(hs.toJson(type, payload));
+      const payload = JSON.stringify({
+         id: ws.id,
+         hp: ws.hp
+      });
+
+      this.broadcast(hs.toJson("hit", payload));
+   }
+
+   dead(ws) {
+      ws.dead = true;
+      const payload = JSON.stringify({
+         id: ws.id
+      });
+      
+      this.broadcast(hs.toJson("dead", payload));
    }
 
    gamestart() {

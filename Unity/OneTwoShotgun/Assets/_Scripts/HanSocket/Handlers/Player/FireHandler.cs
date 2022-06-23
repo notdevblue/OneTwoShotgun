@@ -36,7 +36,7 @@ namespace HanSocket.Handlers.Player
                   User user = GameData.Instance.GetUser(vo.id);
                   Debug.DrawRay(vo.firedPos, dirVector * 1.0f, Color.red, 1.0f);
 
-                  ShellPool.Instance.Get().Fire(vo.firedPos, dirVector, vo.speed, vo.id, vo.alivefor);
+                  // ShellPool.Instance.Get().Fire(vo.firedPos, dirVector, vo.speed, vo.id, vo.alivefor);
                });
             }
          }

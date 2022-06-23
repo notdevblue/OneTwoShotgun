@@ -68,6 +68,8 @@
      <Compile Include="Assets/_Scripts/HanSocket/VO/Queue/RoomDataVO.cs" />
      <Compile Include="Assets/_Scripts/Characters/Pool/CharacterPool.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/VO/Queue/JoinedVO.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/VO/Player/BulletDataVO.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/VO/Player/DeadVO.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/Data/GameData.cs" />
      <Compile Include="Assets/_Scripts/UI/Auth/NicknameInputUI.cs" />
      <Compile Include="Assets/_Scripts/Characters/Player/PlayerHealth.cs" />
@@ -78,11 +80,9 @@
      <Compile Include="Assets/_Scripts/HanSocket/VO/Player/MoveToVO.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/Flag.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/Handlers/Queue/JoinedHandler.cs" />
+     <Compile Include="Assets/_Scripts/HanSocket/Handlers/Player/BulletDataHandler.cs" />
      <Compile Include="Assets/_Scripts/HanSocket/BufferHandler.cs" />
      <Compile Include="Assets/_Scripts/Characters/Player/Shell.cs" />
-     <Compile Include="Assets/_Scripts/HanSocket/VO/Player/DeadVO.cs" />
-     <Compile Include="Assets/_Scripts/HanSocket/VO/Player/BulletDataVO.cs" />
-     <Compile Include="Assets/_Scripts/HanSocket/Handlers/Player/BulletDataHandler.cs" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets/Packages/WebSocketSharp-netstandard.1.0.1/lib/netstandard2.0/websocket-sharp.xml" />

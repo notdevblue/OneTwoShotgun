@@ -31,7 +31,6 @@ namespace Characters.Player
             this._id = id;
 
          transform.position = pos;
-         여기 총알 처리 하고 있었음
       }
 
       // public void Fire(Vector2 pos, Vector2 dir, float speed, int firedby, float alivefor = 10.0f)
