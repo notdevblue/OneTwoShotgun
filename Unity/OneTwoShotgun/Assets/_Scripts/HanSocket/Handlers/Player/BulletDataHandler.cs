@@ -43,10 +43,20 @@ namespace HanSocket.Handlers.Player
                });
             }
 
+            List<int> deleteTarget
+               = new List<int>();
+
             foreach (var e in _shells)
             {
-               e.Value.CheckFrame(_frame);
+               if (!e.Value.CheckFrame(_frame))
+                  deleteTarget.Add(e.Key);
             }
+
+            deleteTarget.ForEach(e => {
+               _shells.Remove(e);
+            });
+
+            
 
             ++_frame;
          }

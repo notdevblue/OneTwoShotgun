@@ -28,6 +28,7 @@ namespace HanSocket.Handlers.Queue
          {
             usr.gameObject.AddComponent<PlayerMove>();
             usr.gameObject.AddComponent<PlayerShoot>();
+            Camera.main.transform.SetParent(usr.transform);
             UserData.Instance.Player = usr;
          }
 

@@ -54,6 +54,7 @@ class Game
       this.shellCount = 4;
       this.shellId = 0;
       this.shellCollisionDistance = 0.5;
+      this.firedelay = 2000; // ms
 
       this.halfAngle = this.shellAngle / 2.0;
       this.halfCount = this.shellCount / 2.0;
@@ -81,6 +82,7 @@ class Game
       ws.position = new Vector2(0.0, 0.0);
       ws.hp = this.playerHp;
       ws.dead = false;
+      ws.onfiredelay = false;
       
       // 방 정보
       this.players.forEach(e => {
@@ -220,7 +222,12 @@ class Game
    }
 
    fire(ws, angle, firedPos) {
-      if (ws.dead) return;
+      if (ws.dead || ws.onfiredelay) return;
+
+      ws.onfiredelay = true;
+      setTimeout(() => {
+         ws.onfiredelay = false;
+      }, this.firedelay);
 
       for (let i = -this.halfCount; i <= this.halfCount; ++i) {
          // if (i == 0) continue;

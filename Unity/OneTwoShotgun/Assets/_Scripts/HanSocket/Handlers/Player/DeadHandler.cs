@@ -16,6 +16,7 @@ namespace HanSocket.Handlers.Player
 
       protected override void OnFlag()
       {
+         Camera.main.transform.SetParent(null);
          GameData.Instance.DeleteUser(vo.id);
       }
    }

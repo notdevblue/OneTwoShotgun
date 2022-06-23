@@ -17,6 +17,9 @@ namespace HanSocket.Data
       [SerializeField]
       private Slider _hpBar;
 
+      private Vector2 _targetPos;
+      private const float _t = (1.0f / (30.0f / 6.0f));
+
       public void Init(int id, int hp, string nickname)
       {
          this.id = id;
@@ -39,6 +42,16 @@ namespace HanSocket.Data
       public void SetHP(int hp)
       {
          _hpBar.value = hp;
+      }
+
+      public void SetTargetPos(Vector2 pos)
+      {
+         _targetPos = pos;
+      }
+
+      private void Update() 
+      {
+         transform.position = Vector2.Lerp(transform.position, _targetPos, _t);
       }
    }
 }
