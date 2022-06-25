@@ -69,7 +69,8 @@ join: {
 joined: {
    int: id,
    int: hp,
-   string: nickname
+   string: nickname,
+   Vector2: pos
 }
 ```
 
@@ -167,6 +168,7 @@ hit: {
 ```js
 dead: {
    int: id
+   int: killedby
 }
 ```
 

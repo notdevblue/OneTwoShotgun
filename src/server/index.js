@@ -5,7 +5,6 @@ const hs = require("./HanSocket/HanSocket.js");
 
 hs.process(ws => {
    ws.loggedin = false;
-   ws["asd"] = 10;
 
    const payload = JSON.stringify({
       id: ws.id

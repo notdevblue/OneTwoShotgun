@@ -50,7 +50,7 @@ class Game
 
       this.playerSpeed = 8;
       this.playerHp = 100;
-      this.firedelay = 2000; // ms
+      this.firedelay = 800; // ms
 
       this.shellAngle = 25.0;
       this.shellLifetime = 10000; // ms
@@ -68,6 +68,12 @@ class Game
 
       this.moveFps = 1000 / 30;
       this.bulletFps = 1000 / 15;
+
+      this.mapMaxX = 25;
+      this.mapMaxY = 25;
+      this.mapMinX = -25;
+      this.mapMinY = -25;
+
    }
 
    start() {
@@ -89,13 +95,15 @@ class Game
       ws.hp = this.playerHp;
       ws.dead = false;
       ws.onfiredelay = false;
+      ws.kill = 0;
       
       // 방 정보
       this.players.forEach(e => {
          roomdata.push({
             id: e.id,
             hp: e.hp,
-            nickname: e.nickname
+            nickname: e.nickname,
+            pos: e.position
          });
       });
       roomdataPayload = JSON.stringify({ userlist: roomdata });
@@ -103,12 +111,20 @@ class Game
       
       this.players[ws.id] = ws;
 
+      const initpos = new Vector2(
+         this.mapMinX + (Math.random() * this.mapMaxX * 2),
+         this.mapMinY + (Math.random() * this.mapMaxY * 2)
+      );
+
+      ws.position = initpos;
+
       // 입장 이벤트
       const joinedPayload
          = hs.toJson("joined", JSON.stringify({
             id: ws.id,
             hp: ws.hp,
-            nickname: ws.nickname
+            nickname: ws.nickname,
+            pos: initpos
          }));
       this.broadcast(joinedPayload);
 
@@ -121,11 +137,11 @@ class Game
          this.processBullet();
       } 
 
-      if (Object.keys(this.players).length >= 2) {
-         this.queueId = setTimeout(() => {
-            this.start();
-         }, this.queueTimeMs);
-      }
+      // if (Object.keys(this.players).length >= 2) {
+      //    this.queueId = setTimeout(() => {
+      //       this.start();
+      //    }, this.queueTimeMs);
+      // }
    }
 
    leave(ws) {
@@ -135,9 +151,9 @@ class Game
 
       write(`[II] Client ${ws.id} left match: ${this.id}`, ws.ipAddr);
 
-      if (Object.keys(this.players).length < 2) {
-         clearInterval(this.queueId);
-      }
+      // if (Object.keys(this.players).length < 2) {
+      //    clearInterval(this.queueId);
+      // }
 
       if (Object.keys(this.players).length <= 0) {
          write(`[II] Game ${this.id} loop terminated`);
@@ -155,6 +171,18 @@ class Game
                e.deltaPosition.x * deltaTime * this.playerSpeed;
             e.position.y +=
                e.deltaPosition.y * deltaTime * this.playerSpeed;
+            
+            
+            if (e.position.x < this.mapMinX)
+               e.position.x = this.mapMinX + 0.1;
+            if (e.position.y < this.mapMinY)
+               e.position.y = this.mapMinY + 0.1;
+            
+            if (e.position.x > this.mapMaxX)
+               e.position.x = this.mapMaxX - 0.1;
+            if (e.position.y > this.mapMaxY)
+               e.position.y = this.mapMaxY - 0.1;
+            
 
             const payload = JSON.stringify({
                id: e.id,
@@ -294,13 +322,15 @@ class Game
 
    dead(ws, shell) {
       ws.dead = true;
+      let killer = this.players[shell.firedby];
+
       const payload = JSON.stringify({
-         id: ws.id
+         id: ws.id,
+         killedby: shell.firedby
       });
       
       this.broadcast(hs.toJson("dead", payload));
 
-      let killer = this.players[shell.firedby];
       mysql.updateKills(killer.nickname, 1);
       mysql.updateDeaths(ws.nickname, 1);
 

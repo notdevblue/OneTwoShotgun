@@ -6,13 +6,15 @@ namespace HanSocket.VO.Player
    public class DeadVO : ValueObject
    {
       public int id;
+      public int killedby;
 
       /// <summary>
       /// type: dead
       /// </summary>
-      public DeadVO(int id)
+      public DeadVO(int id, int killedby)
       {
          this.id = id;
+         this.killedby = killedby;
       }
    }
 }

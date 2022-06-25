@@ -10,6 +10,7 @@ namespace HanSocket.Data
       public int id;
       public int hp;
       public string nickname;
+      public int kills = 0;
 
       [SerializeField]
       private TMP_Text _nicknameText;
@@ -20,8 +21,11 @@ namespace HanSocket.Data
       private Vector2 _targetPos;
       private const float _t = (1.0f / (30.0f / 6.0f));
 
-      public void Init(int id, int hp, string nickname)
+      public void Init(int id, int hp, string nickname, Vector2 pos)
       {
+         transform.position = pos;
+         this._targetPos = pos;
+         
          this.id = id;
          this.hp = hp;
 

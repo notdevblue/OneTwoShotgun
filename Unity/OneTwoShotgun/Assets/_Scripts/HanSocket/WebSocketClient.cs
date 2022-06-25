@@ -19,8 +19,18 @@ namespace HanSocket
       protected override void Awake()
       {
          base.Awake();
+         DontDestroyOnLoad(this.gameObject);
+      }
+
+
+      public void Connect(string ipAddr, string port)
+      {
+         this.ipAddr = ipAddr;
+         this.port   = port;
 
          ws = new WebSocket($"ws://{ipAddr}:{port}");
+         Debug.Log(ipAddr);
+         Debug.Log(port);
 
          ws.OnMessage += (sender, e) => {
             Debug.Log($"Arrived: {e.Data}");
@@ -29,13 +39,6 @@ namespace HanSocket
             BufferHandler.Instance.Handle(data.type, data.payload);
          };
 
-         Connect();
-
-         DontDestroyOnLoad(this.gameObject);
-      }
-
-      public void Connect()
-      {
          ws.Connect();
       }
 

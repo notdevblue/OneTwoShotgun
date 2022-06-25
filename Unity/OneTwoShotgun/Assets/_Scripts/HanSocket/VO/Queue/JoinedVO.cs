@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace HanSocket.VO.Queue
 {
@@ -8,6 +9,7 @@ namespace HanSocket.VO.Queue
       public int id;
       public int hp;
       public string nickname;
+      public Vector2 pos;
 
       /// <summary>
       /// type; joiend

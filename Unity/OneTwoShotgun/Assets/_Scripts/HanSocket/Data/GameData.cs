@@ -46,5 +46,22 @@ namespace HanSocket.Data
 
       public int GetUserCount()
          => _users.Count;
+
+      public void Clear()
+      {
+         _users = new Dictionary<int, User>();
+      }
+
+      public List<User> GetAllUser()
+      {
+         List<User> users = new List<User>();
+
+         foreach(var item in _users)
+         {
+            users.Add(item.Value);
+         }
+
+         return users;
+      }
    }
 }
