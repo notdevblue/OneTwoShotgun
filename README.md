@@ -2,6 +2,15 @@
 
 * * *
 
+### 구조도
+
+<image src="https://raw.githubusercontent.com/notdevblue/OneTwoShotgun/Develop/Untitled%20Diagram.drawio(1).png" width=
+"480">
+
+### 클라이언트 리소스: [Operation Picture](https://github.com/gghteam/s_pie) <br/>
+  
+* * *
+
 ### 의존
 #### 서버 (Node)
 * ws
@@ -9,12 +18,6 @@
 * dotenv
 #### 서버 (서비스)
 * MySQL
-
-
-* * *
-
-### 클라이언트 리소스
-[Operation Picture](https://github.com/gghteam/s_pie) <br/>
 
 * * *
 
