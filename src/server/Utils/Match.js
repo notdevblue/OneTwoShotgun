@@ -331,8 +331,12 @@ class Game
       
       this.broadcast(hs.toJson("dead", payload));
 
-      mysql.updateKills(killer.nickname, 1);
-      mysql.updateDeaths(ws.nickname, 1);
+      try {
+         mysql.updateKills(killer.nickname, 1);
+         mysql.updateDeaths(ws.nickname, 1);
+      } catch (error) {
+         write(error);
+      }
 
       if (!this.queue) {
          let notdeadCount = 0;
@@ -342,7 +346,12 @@ class Game
 
          if (notdeadCount <= 1) {
             this.broadcast(hs.toJson("win", ""));
-            mysql.updateWon(killer.nickname, 1);
+            try {
+               mysql.updateWon(killer.nickname, 1);
+            } catch (error) {
+               write(error);
+            }
+               
          }
       }
    }
