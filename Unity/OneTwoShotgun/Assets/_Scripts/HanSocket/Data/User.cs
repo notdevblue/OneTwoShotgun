@@ -7,6 +7,8 @@ namespace HanSocket.Data
    
    public class User : MonoBehaviour
    {
+      const int MAXHP = 100;
+
       public int id;
       public int hp;
       public string nickname;
@@ -29,7 +31,7 @@ namespace HanSocket.Data
          this.id = id;
          this.hp = hp;
 
-         this._hpBar.maxValue = hp;
+         this._hpBar.maxValue = MAXHP;
          this._hpBar.value    = hp;
 
          this.nickname        = nickname;
