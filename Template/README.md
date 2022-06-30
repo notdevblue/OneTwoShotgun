@@ -63,7 +63,7 @@ nodemon
 ```cs
 class MyHandler : HandlerBase
 {
-  protected override string Type => "hit";
+  protected override string Type => "";
   
   protected override void OnArrived(string payload)
   {
